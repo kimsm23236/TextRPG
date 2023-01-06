@@ -6,7 +6,8 @@ namespace LiveInJobSeeker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Game game = Game.Instance;
+            game.Start();
         }
     }
 }
