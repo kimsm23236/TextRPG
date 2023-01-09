@@ -21,6 +21,9 @@ namespace LiveInJobSeeker
         private string[] menu;
         private int selectNumber;
         private EWAMenu selectMenu;
+        private bool isSelected;
+
+        private WeeklyAction selectedWA;
         
         private int week;
         public int Week
@@ -33,6 +36,8 @@ namespace LiveInJobSeeker
         {
             renderSB = new StringBuilder();
             selectNumber = 0;
+            isSelected = false;
+            selectedWA = new WeeklyAction();
             menu = new string[4] {  "☞ 훈련\t\t   회사지원\t\t   아르바이트\t\t   휴식",
                                     "   훈련\t\t☞ 회사지원\t\t   아르바이트\t\t   휴식",
                                     "   훈련\t\t   회사지원\t\t☞ 아르바이트\t\t   휴식",
@@ -47,19 +52,28 @@ namespace LiveInJobSeeker
 
             // 컨트롤러 초기화
             controller = Controller.Instance;
+            controller.InitDelegate();
             controller.leftarrowkeydownhandle = new F_LeftArrowKeyDownHandle(PressLeftArrowKey);
             controller.rightarrowkeydownhandle = new F_RightArrowKeyDownHandle(PressRightArrowKey);
+            controller.zkeydownhandle = new F_ZKeyDownHandle(PressZKey);
         }
         public override void Update()
         {
             base.Update();
             // 프로토타입용 * 싹 바꿔야됨
-            controller.KbHit();
-            menuUpdate();
+            if(!isSelected)
+            {
+                controller.KbHit();
+                menuUpdate();
 
-            renderSB.AppendLine($"{week}주차                 ");
-            renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp}");
-            renderSB.AppendLine(menu[selectNumber]);
+                renderSB.AppendLine($"{week}주차                 ");
+                renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp}");
+                renderSB.AppendLine(menu[selectNumber]);
+            }
+            else
+            {
+                selectedWA.Update();
+            }
         }
 
         private void menuUpdate()
@@ -100,6 +114,36 @@ namespace LiveInJobSeeker
         public void PressRightArrowKey()
         {
             selectNumber = Math.Clamp(selectNumber + 1, 0, menu.Length - 1);
+        }
+        public void PressZKey()
+        {
+            SelectWA();
+        }
+        private void SelectWA()
+        {
+            WeeklyAction selectWeeklyAction;
+            switch (selectMenu)
+            {
+                case EWAMenu.TRAINING:
+                    selectWeeklyAction = new WA_Training();
+                    break;
+                case EWAMenu.APPLYJOB:
+                    selectWeeklyAction = new WA_ApplyJob();
+                    break;
+                case EWAMenu.PARTTIMEJOB:
+                    selectWeeklyAction = new WA_PartTimeJob();
+                    break;
+                case EWAMenu.REST:
+                    selectWeeklyAction = new WA_Rest();
+                    break;
+                default:
+                    selectWeeklyAction = new WeeklyAction();
+                    break;
+            }
+            selectWeeklyAction.Init();
+            selectWeeklyAction.SetRenderStringBuilder(renderSB);
+            selectedWA = selectWeeklyAction;
+            isSelected = true;
         }
 
     }

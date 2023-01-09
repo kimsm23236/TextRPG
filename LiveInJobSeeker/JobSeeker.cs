@@ -47,6 +47,10 @@ namespace LiveInJobSeeker
         private string name;
         // 스탯
         private Status stat;
+        // 돈
+        private int money;
+        // 턴 수
+        private int cntTurn;
 
         public string Name
         {
@@ -56,12 +60,23 @@ namespace LiveInJobSeeker
         { 
             get { return stat; } 
         }
+        public int Money
+        {
+            get { return money; }
+        }
+
+        public int Turn
+        {
+            get { return cntTurn; }
+            set { cntTurn = value; }
+        }
 
         public JobSeeker()
         {
             name = string.Empty;
             // 스탯 초기화
             stat = new Status();
+            cntTurn = 0;
         }
 
         public void SetName(string newName)
@@ -71,6 +86,33 @@ namespace LiveInJobSeeker
         public void SetStat(Status newStat)
         {
             stat = newStat;
+        }
+
+        public void ResetHP()
+        {
+            Status.hp = 100;
+        }
+        public void IncreaseHP(int value)
+        {
+            stat.hp += value;
+        }
+        public void DecreaseHP(int value)
+        {
+            stat.hp -= value;
+        }
+
+        public void IncreaseTurn()
+        {
+            cntTurn++;
+        }
+
+        public void IncreaseMoney(int m)
+        {
+            money += m;
+        }
+        public void DecreaseMoney(int m)
+        {
+            money -= m;
         }
     }
 }

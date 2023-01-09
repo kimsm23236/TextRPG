@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace LiveInJobSeeker
 {
     public delegate void FShiftSceneDelegate(Scene nextScene);
-    public delegate void FOnShiftSceneDelegate();
     public class Game
     {
         /*
@@ -27,7 +26,6 @@ namespace LiveInJobSeeker
         // 현재 씬
         private Scene currentScene;
         public FShiftSceneDelegate shiftscenehandle;
-        public FOnShiftSceneDelegate onshiftscenehandle;
 
         // 플레이어
         private JobSeeker currentJobSeeker;
@@ -57,13 +55,9 @@ namespace LiveInJobSeeker
         {
             // 현재 씬을 씬 객체 생성 후 타이틀 화면 씬으로 대입;
             currentScene = new TitleScene();
-            
+            currentScene.Init();
             // 델리게이트 초기화
             shiftscenehandle = new FShiftSceneDelegate(ShiftScene);
-            onshiftscenehandle = new FOnShiftSceneDelegate(OnShiftScene);
-
-            //  씬 초기화
-            onshiftscenehandle.Invoke();
         }
 
         public void Start()
@@ -93,12 +87,8 @@ namespace LiveInJobSeeker
 
         private void ShiftScene(Scene nextScene)
         {
-            currentScene = nextScene;
-            onshiftscenehandle.Invoke();
-        }
-        private void OnShiftScene()
-        {
             Console.Clear();
+            currentScene = nextScene;
             currentScene.Init();
         }
     }

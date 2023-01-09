@@ -22,5 +22,9 @@ namespace LiveInJobSeeker
             base.ExecuteAction();
 
         }
+        public override void PRC_Action()
+        {
+            base.PRC_Action();
+        }
     }
 }

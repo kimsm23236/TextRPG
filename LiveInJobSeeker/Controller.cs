@@ -8,6 +8,8 @@ namespace LiveInJobSeeker
 {
     public delegate void F_LeftArrowKeyDownHandle();
     public delegate void F_RightArrowKeyDownHandle();
+    public delegate void F_UpArrowKeyDownHandle();
+    public delegate void F_DownArrowKeyDownHandle();
     public delegate void F_ZKeyDownHandle();
     public delegate void F_XKeyDownHandle();
 
@@ -15,10 +17,12 @@ namespace LiveInJobSeeker
     {
         private bool bisKeyDown;
 
-        public F_LeftArrowKeyDownHandle leftarrowkeydownhandle;
-        public F_RightArrowKeyDownHandle rightarrowkeydownhandle;
-        public F_ZKeyDownHandle zkeydownhandle;
-        public F_XKeyDownHandle xkeydownhandle;
+        public F_LeftArrowKeyDownHandle     leftarrowkeydownhandle;
+        public F_RightArrowKeyDownHandle    rightarrowkeydownhandle;
+        public F_UpArrowKeyDownHandle       uparrowkeydownhandle;
+        public F_DownArrowKeyDownHandle     downArrowKeydownHandle;
+        public F_ZKeyDownHandle             zkeydownhandle;
+        public F_XKeyDownHandle             xkeydownhandle;
 
         public bool IsKeyDown
         {
@@ -69,6 +73,12 @@ namespace LiveInJobSeeker
                     case ConsoleKey.RightArrow:
                         rightarrowkeydownhandle.Invoke();
                         break;
+                    case ConsoleKey.UpArrow:
+                        uparrowkeydownhandle.Invoke();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        downArrowKeydownHandle.Invoke();
+                        break;
                     case ConsoleKey.Z:
                         zkeydownhandle.Invoke();
                         break;
@@ -83,6 +93,8 @@ namespace LiveInJobSeeker
         {
             leftarrowkeydownhandle = new F_LeftArrowKeyDownHandle(LeftArrowKeyDown);
             rightarrowkeydownhandle = new F_RightArrowKeyDownHandle(RightArrowKeyDown);
+            uparrowkeydownhandle = new F_UpArrowKeyDownHandle(UpArrowKeyDown);
+            downArrowKeydownHandle = new F_DownArrowKeyDownHandle(DownArrowKeyDown);
             zkeydownhandle = new F_ZKeyDownHandle(ZKeyDown);
             xkeydownhandle = new F_XKeyDownHandle(XKeyDown);
         }
@@ -95,6 +107,14 @@ namespace LiveInJobSeeker
         {
             Console.WriteLine("오른쪽 방향키 눌렸음");
         }
+        public void UpArrowKeyDown()
+        {
+            Console.WriteLine("위쪽 방향키 눌렸음");
+        }
+        public void DownArrowKeyDown()
+        {
+            Console.WriteLine("아래쪽 방향키 눌렸음");
+        }
 
         public void ZKeyDown()
         {
@@ -105,7 +125,5 @@ namespace LiveInJobSeeker
         {
             Console.WriteLine("X키 눌렸음");
         }
-
-
     }
 }
