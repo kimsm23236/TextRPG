@@ -68,13 +68,17 @@ namespace LiveInJobSeeker
         {
             await Task.Delay(sec);
             ToNextScene();
-
         }
         protected virtual void ToNextScene()
         {
             Game gameIns = Game.Instance;
             MGLS_WeeklyAction nextScene = new MGLS_WeeklyAction();
             gameIns.shiftscenehandle(nextScene);
+        }
+        protected virtual async void ToNextPrc_a_Second(int sec)
+        {
+            await Task.Delay(sec);
+            // next process
         }
 
         public virtual void PressLeftArrowKey()

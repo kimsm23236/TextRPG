@@ -88,12 +88,6 @@ namespace LiveInJobSeeker
                 rendersb.AppendLine(res);
             }
         }
-
-        //protected override async void ToNextScene_a_Second(int Sec)
-        //{
-        //    await Task.Delay(Sec);
-        //    ToNextScene();
-        //}
         private void UpdateMenu()
         {
             switch(selectNumber)

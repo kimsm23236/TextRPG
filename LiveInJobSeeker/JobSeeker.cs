@@ -29,7 +29,7 @@ namespace LiveInJobSeeker
 
         public Status()
         {
-            hp = 0;
+            hp = 1000;
             specPower = 0;
             codePower = 0;
             algoPower = 0;
@@ -40,6 +40,12 @@ namespace LiveInJobSeeker
             agp_DivC = 0;
             intvPower = 0;
         }
+    }
+
+    public enum EAttack
+    {
+        NONE = 0,
+        SPECATTACK, COTEATTACK, INTVATTACK
     }
     public class JobSeeker
     {
@@ -99,6 +105,63 @@ namespace LiveInJobSeeker
         public void DecreaseHP(int value)
         {
             stat.hp -= value;
+        }
+
+        public bool IsDead()
+        {
+            return stat.hp <= 0;
+        }
+
+        // 데미지 처리 함수
+        public int TakeDamage(int dmgValue, EAttack Atk)
+        {
+            // 데미지 계산식
+            // 각각 공격력 - 그에 맞는 플레이어 스탯
+            int firstDamage = dmgValue;
+            int firstDef = 0;
+            switch(Atk)
+            {
+                case EAttack.SPECATTACK:
+                    firstDef = stat.specPower;
+                    break;
+                case EAttack.COTEATTACK:
+                    /* Do Nothing */
+                    break;
+                case EAttack.INTVATTACK:
+                    firstDef = stat.intvPower;
+                    break;
+                default:
+                    break;
+            }
+            int finalDamage = Math.Clamp(firstDamage - firstDef, 0, 100);
+            DecreaseHP(finalDamage);
+            return finalDamage;
+        }
+        public int TakeDamage(int dmgValue, EAttack Atk, EAlgorithm Algo) // 코테 데미지 처리
+        {
+            int firstDamage = dmgValue;
+            int firstDef = 0;
+            switch (Algo)
+            {
+                case EAlgorithm.BRUTEFORCE:
+                    firstDef = stat.agp_Brf;
+                    break;
+                case EAlgorithm.DP:
+                    firstDef = stat.agp_DP;
+                    break;
+                case EAlgorithm.BDFS:
+                    firstDef = stat.agp_BDFS;
+                    break;
+                case EAlgorithm.DIJKSTRA:
+                    firstDef = stat.agp_Dijk;
+                    break;
+                case EAlgorithm.DIVIDEANDCONQUER:
+                    firstDef = stat.agp_DivC;
+                    break;
+            }
+            int finalDamage = Math.Clamp(firstDamage - firstDef, 0, 100);
+            DecreaseHP(finalDamage);
+            return finalDamage;
         }
 
         public void IncreaseTurn()
