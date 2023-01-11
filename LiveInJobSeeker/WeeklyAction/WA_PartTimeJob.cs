@@ -14,7 +14,7 @@ namespace LiveInJobSeeker
     public class WA_PartTimeJob : WeeklyAction
     {
         
-        private List<string> resultStr;
+        // private List<string> resultStr;
         private EPARTTIMEJOB selectedPTJ = EPARTTIMEJOB.NONE;
 
         private const int INCREASEVALUE_MONEY = 9620;
@@ -33,8 +33,12 @@ namespace LiveInJobSeeker
         public override void Init()
         {
             base.Init();
-            TextBar.SetDesc(descStr[0]);
+            //
+            descSB.AppendLine(descStr[0]);
+            TextBar.SetDesc(descSB.ToString());
+            TextBar.SetOutputType(EOutputType.DEFAULT);
             TextBar.SetVTCMenu(menu);
+            //
             controller.uparrowkeydownhandle = new F_UpArrowKeyDownHandle(PressUpArrowKey);
             controller.downArrowKeydownHandle = new F_DownArrowKeyDownHandle(PressDownArrowKey);
             controller.zkeydownhandle = new F_ZKeyDownHandle(PressZKey);
@@ -71,6 +75,7 @@ namespace LiveInJobSeeker
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"돈 {increaseMoney}원을 획득하였습니다.");
             sb.AppendLine($"체력이 {decreaseHp} 만큼 감소하였습니다.");
+            //
             TextBar.SetRes(sb.ToString());
             TextBar.onOutputResultHandle();
         }
@@ -115,6 +120,7 @@ namespace LiveInJobSeeker
         {
             base.PressUpArrowKey();
             selectNumber = Math.Clamp(selectNumber - 1, 0, 1);
+            //
             TextBar.SelectMenu = selectNumber;
             TextBar.onUIUpdatedhandle();
         }
@@ -122,6 +128,7 @@ namespace LiveInJobSeeker
         {
             base.PressDownArrowKey();
             selectNumber = Math.Clamp(selectNumber + 1, 0, 1);
+            //
             TextBar.SelectMenu = selectNumber;
             TextBar.onUIUpdatedhandle();
         }
@@ -129,6 +136,7 @@ namespace LiveInJobSeeker
         {
             base.PressZKey();
             ExecuteAction();
+            //
             TextBar.onUIUpdatedhandle();
         }
     }

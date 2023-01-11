@@ -60,7 +60,7 @@ namespace LiveInJobSeeker
             renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp} ");
             TextBar.SetSB(renderSB.ToString());
             TextBar.SetHRZMenu(menu);
-            TextBar.Init(160, 10, 0, 40, EOutputType.SEQ_LETTER, renderSB.ToString());
+            TextBar.Init(160, 10, 0, 40, EOutputType.DEFAULT, renderSB.ToString());
             TextBar.IsThereBorder = true;
             // 컨트롤러 초기화
             controller = Controller.Instance;

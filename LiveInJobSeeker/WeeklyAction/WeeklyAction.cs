@@ -26,6 +26,9 @@ namespace LiveInJobSeeker
         protected List<string> menu = new List<string>();
         protected List<string> resultStr = new List<string>();
 
+        protected StringBuilder descSB= new StringBuilder();
+        protected StringBuilder menuSB = new StringBuilder();
+        protected StringBuilder resultSB = new StringBuilder();
 
         protected bool RunOnlyOnce;
         protected bool isEndAllAction;
@@ -88,6 +91,7 @@ namespace LiveInJobSeeker
             MGLS_WeeklyAction nextScene = new MGLS_WeeklyAction();
             player.IncreaseTurn();
             gameIns.shiftscenehandle(nextScene);
+            Console.Clear();
         }
         protected virtual async void ToNextPrc_a_Second(int sec)
         {

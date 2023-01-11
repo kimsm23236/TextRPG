@@ -18,7 +18,7 @@ namespace LiveInJobSeeker
     public class TextMenuUI : UI
     {
         private int cntOutputLetter;
-        EOutputType outputType;
+        public EOutputType outputType;
 
         // 메뉴 관련
         private List<string> hrz_menu;
@@ -75,6 +75,7 @@ namespace LiveInJobSeeker
             IsVtcMenu       = false;
             IsOutputDesc    = false;
             IsOutputResult  = false;
+            bIsUpdated = true;
 
             // 델리게이트 바인딩
             onUIUpdatedhandle = () => { bIsUpdated = true; };
@@ -85,7 +86,8 @@ namespace LiveInJobSeeker
                 IsHrzMenu = false;
                 IsVtcMenu = false;
                 bIsUpdated = true;
-                cntOutputLetter= 0;
+                outputInit();
+                // cntOutputLetter= 0;
                 OnTimer();
             };
 
@@ -110,6 +112,11 @@ namespace LiveInJobSeeker
             curOutputStr = descStr;
         }
 
+        public void SetOutputType(EOutputType type)
+        {
+            outputType = type;
+            outputInit();
+        }
         private void outputInit()
         {
             switch (outputType)
