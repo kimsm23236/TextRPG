@@ -21,13 +21,22 @@ namespace LiveInJobSeeker
         protected StringBuilder rendersb;
         protected int menuLevel;
 
+        // string
+        protected List<string> descStr = new List<string>();
+        protected List<string> menu = new List<string>();
+        protected List<string> resultStr = new List<string>();
+
+
         protected bool RunOnlyOnce;
         protected bool isEndAllAction;
         protected F_ActionEndHandle actionEndHandle;
+        public TextMenuUI TextBar;
+
         public WeeklyAction()
         { 
             player = new JobSeeker();
-            isEndAllAction= false;
+            TextBar = new TextMenuUI();
+            isEndAllAction = false;
         }  
         public virtual void Init()
         {
@@ -35,9 +44,19 @@ namespace LiveInJobSeeker
             player = gameIns.Player;
             controller = Controller.Instance;
             controller.InitDelegate();
+
+            //
+            TextBar.Init(160, 10, 0, 40, EOutputType.SEQ_LETTER);
+            TextBar.IsThereBorder = true;
+            //
+
             isEndAllAction = false;
             RunOnlyOnce = true;
             selectNumber = 0;
+        }
+        public virtual void SetTextBar(TextMenuUI ui)
+        {
+            this.TextBar = ui;
         }
         public virtual void SetRenderStringBuilder(StringBuilder newSB)
         {
@@ -55,13 +74,7 @@ namespace LiveInJobSeeker
         public virtual void Update()
         {
             controller.KbHit();
-            if(isEndAllAction)
-            {
-                // 다음 씬으로
-                SelectEndingScene nextScene = new SelectEndingScene();
-                Game gameIns = Game.Instance;
-                gameIns.shiftscenehandle.Invoke(nextScene);
-            }
+
         }
 
         protected virtual async void ToNextScene_a_Second(int sec)
@@ -73,6 +86,7 @@ namespace LiveInJobSeeker
         {
             Game gameIns = Game.Instance;
             MGLS_WeeklyAction nextScene = new MGLS_WeeklyAction();
+            player.IncreaseTurn();
             gameIns.shiftscenehandle(nextScene);
         }
         protected virtual async void ToNextPrc_a_Second(int sec)

@@ -19,8 +19,8 @@ namespace LiveInJobSeeker
         private bool bisGameEnd = false;
 
         // 콘솔창 크기
-        private int width;
-        private int height;
+        private const int WINDOW_WIDTH = 160;
+        private const int WINDOW_HEIGHT = 50;
 
         // 씬 관련
         // 현재 씬
@@ -60,13 +60,24 @@ namespace LiveInJobSeeker
             shiftscenehandle = new FShiftSceneDelegate(ShiftScene);
         }
 
+        public void Init()
+        {
+            ConsoleInit();
+        }
+        private void ConsoleInit()
+        {
+            Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+            Console.SetBufferSize(WINDOW_WIDTH, WINDOW_HEIGHT + 10);
+            // Console.BufferWidth = int;
+            Console.CursorVisible = false;
+        }
+
         public void Start()
         {
             while(!bisGameEnd)
             {
                 Update();
                 Render();
-                Thread.Sleep(50);
             }
         }
 

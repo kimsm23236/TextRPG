@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LiveInJobSeeker
@@ -32,9 +33,9 @@ namespace LiveInJobSeeker
         }
         public virtual void Render()
         {
-            Console.SetCursorPosition(0, 0);
-            Console.Write(renderSB.ToString());
-            renderSB.Clear();
+            // Console.SetCursorPosition(0, 0);
+            Thread.Sleep(50);
+            // renderSB.Clear();
         }
         public virtual void Destroy() 
         {

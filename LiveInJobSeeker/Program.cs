@@ -7,6 +7,7 @@ namespace LiveInJobSeeker
         static void Main(string[] args)
         {
             Game game = Game.Instance;
+            game.Init();
             game.Start();
         }
     }

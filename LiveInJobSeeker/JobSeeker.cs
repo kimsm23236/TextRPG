@@ -82,7 +82,7 @@ namespace LiveInJobSeeker
             name = string.Empty;
             // 스탯 초기화
             stat = new Status();
-            cntTurn = 0;
+            cntTurn = 1;
         }
 
         public void SetName(string newName)

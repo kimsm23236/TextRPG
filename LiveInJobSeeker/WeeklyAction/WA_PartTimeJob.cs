@@ -13,9 +13,7 @@ namespace LiveInJobSeeker
     }
     public class WA_PartTimeJob : WeeklyAction
     {
-        private List<string> descStr = new List<string>() {"아르바이트를 선택하세요." };
-        private List<string> menu = new List<string>() {"쉬운 알바 (체력 감소 수치 및 돈 증가 수치 ↓)",
-                                                        "힘든 알바 (체력 감소 수치 및 돈 증가 수치 ↑)"};
+        
         private List<string> resultStr;
         private EPARTTIMEJOB selectedPTJ = EPARTTIMEJOB.NONE;
 
@@ -25,12 +23,18 @@ namespace LiveInJobSeeker
 
         public WA_PartTimeJob() 
         { 
-            selectNumber = 0;
+            selectNumber = 0; 
+            descStr = new List<string>() { "아르바이트를 선택하세요." };
+            menu = new List<string>() { "쉬운 알바 (체력 감소 수치 및 돈 증가 수치 ↓)",
+                                        "힘든 알바 (체력 감소 수치 및 돈 증가 수치 ↑)"  };
             resultStr = new List<string>();
+
         }
         public override void Init()
         {
             base.Init();
+            TextBar.SetDesc(descStr[0]);
+            TextBar.SetVTCMenu(menu);
             controller.uparrowkeydownhandle = new F_UpArrowKeyDownHandle(PressUpArrowKey);
             controller.downArrowKeydownHandle = new F_DownArrowKeyDownHandle(PressDownArrowKey);
             controller.zkeydownhandle = new F_ZKeyDownHandle(PressZKey);
@@ -42,7 +46,7 @@ namespace LiveInJobSeeker
             RunOnlyOnce = false;
             base.ExecuteAction();
             PRC_Action();
-            ToNextScene_a_Second(2000);
+            ToNextScene_a_Second(4000);
         }
         public override void PRC_Action()
         {
@@ -63,9 +67,12 @@ namespace LiveInJobSeeker
                     break;
             }
             player.IncreaseMoney(increaseMoney);
-            resultStr.Add($"돈 {increaseMoney}원을 획득하였습니다.");
             player.DecreaseHP(decreaseHp);
-            resultStr.Add($"체력 {decreaseHp}이 감소하였습니다.");
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"돈 {increaseMoney}원을 획득하였습니다.");
+            sb.AppendLine($"체력이 {decreaseHp} 만큼 감소하였습니다.");
+            TextBar.SetRes(sb.ToString());
+            TextBar.onOutputResultHandle();
         }
 
         public override void Update()
@@ -73,6 +80,7 @@ namespace LiveInJobSeeker
             base.Update();
 
             UpdateMenu();
+            /*
             rendersb.AppendLine(descStr[0]);
             for (int i = 0; i < menu.Count; i++)
             {
@@ -87,6 +95,7 @@ namespace LiveInJobSeeker
             {
                 rendersb.AppendLine(res);
             }
+            */
         }
         private void UpdateMenu()
         {
@@ -106,16 +115,21 @@ namespace LiveInJobSeeker
         {
             base.PressUpArrowKey();
             selectNumber = Math.Clamp(selectNumber - 1, 0, 1);
+            TextBar.SelectMenu = selectNumber;
+            TextBar.onUIUpdatedhandle();
         }
         public override void PressDownArrowKey()
         {
             base.PressDownArrowKey();
             selectNumber = Math.Clamp(selectNumber + 1, 0, 1);
+            TextBar.SelectMenu = selectNumber;
+            TextBar.onUIUpdatedhandle();
         }
         public override void PressZKey()
         {
             base.PressZKey();
             ExecuteAction();
+            TextBar.onUIUpdatedhandle();
         }
     }
 }

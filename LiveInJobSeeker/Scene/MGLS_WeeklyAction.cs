@@ -24,6 +24,8 @@ namespace LiveInJobSeeker
         private bool isSelected;
 
         private WeeklyAction selectedWA;
+
+        private TextMenuUI TextBar;
         
         private int week;
         public int Week
@@ -38,6 +40,8 @@ namespace LiveInJobSeeker
             selectNumber = 0;
             isSelected = false;
             selectedWA = new WeeklyAction();
+            TextBar = new TextMenuUI();
+
             menu = new string[4] {  "☞ 훈련\t\t   회사지원\t\t   아르바이트\t\t   휴식",
                                     "   훈련\t\t☞ 회사지원\t\t   아르바이트\t\t   휴식",
                                     "   훈련\t\t   회사지원\t\t☞ 아르바이트\t\t   휴식",
@@ -49,7 +53,15 @@ namespace LiveInJobSeeker
             // 플레이어 초기화
             Game gameIns = Game.Instance;
             player = gameIns.Player;
+            week = player.Turn;
 
+            // UI 초기화
+            renderSB.AppendLine($"{week}주차 ");
+            renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp} ");
+            TextBar.SetSB(renderSB.ToString());
+            TextBar.SetHRZMenu(menu);
+            TextBar.Init(160, 10, 0, 40, EOutputType.SEQ_LETTER, renderSB.ToString());
+            TextBar.IsThereBorder = true;
             // 컨트롤러 초기화
             controller = Controller.Instance;
             controller.InitDelegate();
@@ -65,10 +77,6 @@ namespace LiveInJobSeeker
             {
                 controller.KbHit();
                 menuUpdate();
-
-                renderSB.AppendLine($"{week}주차                 ");
-                renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp}");
-                renderSB.AppendLine(menu[selectNumber]);
             }
             else
             {
@@ -95,11 +103,20 @@ namespace LiveInJobSeeker
                 default:
                     break;
             }
+            TextBar.SelectMenu = selectNumber;
         }
 
         public override void Render()
         {
             base.Render();
+            if(!isSelected)
+            {
+                TextBar.Render();
+            }
+            else
+            {
+                selectedWA.TextBar.Render();
+            }
         }
 
         public override void Destroy()
@@ -110,10 +127,12 @@ namespace LiveInJobSeeker
         public void PressLeftArrowKey() // 상위클래스 정의후 오버라이드로 바꿀수도 있음
         {
             selectNumber = Math.Clamp(selectNumber - 1, 0, menu.Length - 1);
+            TextBar.onUIUpdatedhandle();
         }
         public void PressRightArrowKey()
         {
             selectNumber = Math.Clamp(selectNumber + 1, 0, menu.Length - 1);
+            TextBar.onUIUpdatedhandle();
         }
         public void PressZKey()
         {
@@ -145,6 +164,5 @@ namespace LiveInJobSeeker
             selectedWA = selectWeeklyAction;
             isSelected = true;
         }
-
     }
 }
