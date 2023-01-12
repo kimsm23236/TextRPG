@@ -29,7 +29,7 @@ namespace LiveInJobSeeker
 
         public Status()
         {
-            hp = 1000;
+            hp = 100;
             specPower = 0;
             codePower = 0;
             algoPower = 0;

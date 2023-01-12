@@ -141,10 +141,9 @@ namespace LiveInJobSeeker
                     break;
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Training);
-            sb.AppendLine($"체력이 {decreasingValue} 만큼 감소하였습니다.");
-            TextBar.SetRes(sb.ToString());
+            resultSB.AppendLine(Training);
+            resultSB.AppendLine($"체력이 {decreasingValue} 만큼 감소하였습니다.");
+            TextBar.SetRes(resultSB.ToString());
             TextBar.onOutputResultHandle();
             // resultStr.Add(Training);
         }

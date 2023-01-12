@@ -17,7 +17,8 @@ namespace LiveInJobSeeker
 
     public class TextMenuUI : UI
     {
-        private int cntOutputLetter;
+        protected int cntOutputLetter;
+        protected int cntOutputLine;
         public EOutputType outputType;
 
         // 메뉴 관련
@@ -33,12 +34,12 @@ namespace LiveInJobSeeker
         }
         private bool bisAllOutput;
 
-        private string curOutputStr;
+        protected string curOutputStr;
 
         private string descStr;
         private bool IsOutputDesc;
 
-        private string resultStr;
+        protected string resultStr;
         private bool IsOutputResult;
         public F_OnOutputResultHandle onOutputResultHandle;
         public void SetDesc(string str)
@@ -52,7 +53,7 @@ namespace LiveInJobSeeker
             curOutputStr = resultStr;
         }
 
-        private int textAppearSpeed;
+        protected int textAppearSpeed;
         public int TextAppearSpeed
         {
             get { return textAppearSpeed; }
@@ -75,7 +76,7 @@ namespace LiveInJobSeeker
             IsVtcMenu       = false;
             IsOutputDesc    = false;
             IsOutputResult  = false;
-            bIsUpdated = true;
+            bIsUpdated      = true;
 
             // 델리게이트 바인딩
             onUIUpdatedhandle = () => { bIsUpdated = true; };
@@ -117,15 +118,18 @@ namespace LiveInJobSeeker
             outputType = type;
             outputInit();
         }
-        private void outputInit()
+        protected void outputInit()
         {
             switch (outputType)
             {
                 case EOutputType.DEFAULT:
                     cntOutputLetter = 10000;
+                    cntOutputLine = 10000;
                     bisAllOutput = true;
                     break;
                 case EOutputType.SEQ_LINE:
+                    cntOutputLine = 0;
+                    OnTimer();
                     break;
                 case EOutputType.SEQ_LETTER:
                     cntOutputLetter = 0;
@@ -208,11 +212,11 @@ namespace LiveInJobSeeker
             }
             bIsUpdated = false;
         }
-        public void OnTimer()
+        public virtual void OnTimer()
         {
             IncreaseOutputLetter();
         }
-        private async void IncreaseOutputLetter()
+        protected virtual async void IncreaseOutputLetter()
         {
             if (cntOutputLetter >= curOutputStr.Length)
             {

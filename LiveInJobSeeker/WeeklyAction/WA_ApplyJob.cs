@@ -32,6 +32,8 @@ namespace LiveInJobSeeker
         // 출력 로그
         private List<string> outputLogs;
 
+        private BattleText battleTextBar;
+
         private int logIdx;
         private int outputLineNum;
         public EApplyJobPhase Phase
@@ -47,6 +49,12 @@ namespace LiveInJobSeeker
             logIdx = 0;
             outputLineNum = 0;
             outputLogs = new List<string>();
+            battleTextBar = new BattleText();
+
+            descStr = new List<string>() { "지원 가능한 공고 목록" };
+            resultStr = new List<string>();
+            menu = new List<string>();
+
         }
         public override void Init()
         {
@@ -59,6 +67,15 @@ namespace LiveInJobSeeker
             battleManager = new BattleManager();
             SetupEnemyList();
             currentPhase = EApplyJobPhase.SEARCHJP;
+
+            // TextBar.Init(160, 10, 0, 40);
+            descSB.AppendLine(descStr[0]);
+            TextBar.SetDesc(descSB.ToString());
+            TextBar.SetOutputType(EOutputType.DEFAULT);
+            TextBar.SetVTCMenu(menu);
+
+            battleTextBar.Init(160, 10, 0, 40);
+            battleTextBar.IsThereBorder = true;
         }
         public override void ExecuteAction()
         {
@@ -78,9 +95,15 @@ namespace LiveInJobSeeker
             if (currentPhase == EApplyJobPhase.BATTLE)
             {
                 logs = battleManager.ExecuteBattle();
-                LogsToOutputLogs();
-                Output_a_Second(800);
-                IncreaseLogIdx_a_Second(6000);
+                battleTextBar.SetLogs(logs);
+                battleTextBar.logprocessendhandle = new F_LogProcessEndHandle(BattleEnd);
+                TextBar = battleTextBar;
+                TextBar.SetOutputType(EOutputType.SEQ_LINE);
+                TextBar.SetRes(battleManager.ResultStr);
+
+                //LogsToOutputLogs();
+                //Output_a_Second(800);
+                //IncreaseLogIdx_a_Second(6000);
             }
         }
 
@@ -89,7 +112,7 @@ namespace LiveInJobSeeker
             base.Update();
 
             // 페이즈에 따라 다른 처리
-            
+            /*
             switch(Phase)
             {
                 case EApplyJobPhase.SEARCHJP:   // 서치
@@ -134,15 +157,21 @@ namespace LiveInJobSeeker
                     break;
                 default:
                     break;
-            }
+            }*/
         }
         private void PressUpArrowKey()
         {
-            selectNumber = Math.Clamp(selectNumber - 1, 0, enemyCount);
+            selectNumber = Math.Clamp(selectNumber - 1, 0, enemyCount - 1);
+            //
+            TextBar.SelectMenu = selectNumber;
+            TextBar.onUIUpdatedhandle();
         }
         private void PressDownArrowKey()
         {
-            selectNumber = Math.Clamp(selectNumber + 1, 0, enemyCount);
+            selectNumber = Math.Clamp(selectNumber + 1, 0, enemyCount - 1);
+            //
+            TextBar.SelectMenu = selectNumber;
+            TextBar.onUIUpdatedhandle();
         }
         private void PressZKey()
         {
@@ -174,7 +203,16 @@ namespace LiveInJobSeeker
         private void SetupEnemyList()
         {
             enemies = enemyCreater.CreateEnemyList();
+            foreach(var enemy in enemies)
+            {
+                menu.Add(enemy.Name);
+            }
             enemyCount = enemies.Count;
+        }
+
+        private void BattleEnd()
+        {
+            ToNextScene_a_Second(2000);
         }
 
         private async void Output_a_Second(int sec)

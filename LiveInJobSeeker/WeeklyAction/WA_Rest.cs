@@ -18,6 +18,11 @@ namespace LiveInJobSeeker
         public override void Init()
         {
             base.Init();
+
+            descSB.AppendLine(descStr);
+            TextBar.SetDesc(descSB.ToString());
+            TextBar.SetOutputType(EOutputType.SEQ_LETTER);
+
             ExecuteAction();
         }
         public override void ExecuteAction()
@@ -43,7 +48,9 @@ namespace LiveInJobSeeker
             base.PRC_Action();
             player.Status.hp = 100;
             string resStr = $"체력이 {player.Status.hp}으로 회복되었습니다.";
-            resultStr.Add(resStr);
+            resultSB.AppendLine(resStr);
+            TextBar.SetRes(resultSB.ToString());
+            TextBar.onOutputResultHandle();
         }
     }
 }

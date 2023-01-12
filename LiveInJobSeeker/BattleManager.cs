@@ -34,6 +34,26 @@ namespace LiveInJobSeeker
             coteDescStr = string.Empty;
             damageDescStr = dmg;
         }
+        public BattleLog()
+        {
+            playerStr= string.Empty;
+            atkDescStr= string.Empty;
+            coteDescStr= string.Empty;
+            damageDescStr= string.Empty;
+        }
+        public int CntLine()
+        {
+            int num = 4;
+            if (playerStr == string.Empty)
+                num--;
+            if (atkDescStr == string.Empty)
+                num--;
+            if (coteDescStr == string.Empty)
+                num--;
+            if (damageDescStr == string.Empty)
+                num--;
+            return num;
+        }
         public void SetAlive(bool alive)
         {
             this.isAlive = alive;
@@ -52,7 +72,11 @@ namespace LiveInJobSeeker
         private JobPosting enemy;
         private int CoteIdx;
 
-        private string ResultStr; // * 합격 하였다!, 서류 광탈 하였다!, 코테 불합 하였다! 이런거
+        private string resultStr; // * 합격 하였다!, 서류 광탈 하였다!, 코테 불합 하였다! 이런거
+        public string ResultStr
+        {
+            get { return resultStr; }
+        }
 
         private EBattlePhase phase;
 
@@ -73,6 +97,7 @@ namespace LiveInJobSeeker
         {
             enemy = e;
             CoteIdx = 0;
+            resultStr = $"{enemy.Name}\n";
         }
         public List<BattleLog> ExecuteBattle()
         {
@@ -110,7 +135,7 @@ namespace LiveInJobSeeker
             if(player.IsDead())
             {
                 bIsAlive = false;
-                ResultStr = "서류 광탈 하였다!";
+                resultStr += "서류 광탈 하였다!";
             }
                 
 
@@ -161,7 +186,7 @@ namespace LiveInJobSeeker
                 if (player.IsDead())
                 {
                     isAlive = false;
-                    ResultStr = "코딩 테스트에 불합격하였다!";
+                    resultStr += "코딩 테스트에 불합격하였다!";
                 }
                 bLog.SetAlive(isAlive);
                 logs.Add(bLog);
@@ -190,11 +215,11 @@ namespace LiveInJobSeeker
             if(player.IsDead())
             {
                 isAlive = false;
-                ResultStr = "아쉽게도 면접에서 탈락하였다!";
+                resultStr += "면접에서 탈락하였다!";
             }
             else
             {
-                ResultStr = "최종 합격!";
+                resultStr += "최종 합격!";
             }
             bLog.SetAlive(isAlive);
             logs.Add(bLog);

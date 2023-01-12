@@ -81,6 +81,7 @@ namespace LiveInJobSeeker
             else
             {
                 selectedWA.Update();
+                selectedWA.TextBar.Update();
             }
         }
 

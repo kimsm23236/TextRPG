@@ -29,6 +29,7 @@ namespace LiveInJobSeeker
         public F_OnUIUpdatedHandle onUIUpdatedhandle;
         protected bool bIsUpdated;
 
+        // 유니티?
         protected string grid1 = "+";
         protected string grid2 = "-";
         protected string grid3 = "|";
