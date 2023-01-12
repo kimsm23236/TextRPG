@@ -27,6 +27,7 @@ namespace LiveInJobSeeker
 
         private TextMenuUI TextBar;
         
+        
         private int week;
         public int Week
         {
@@ -68,11 +69,14 @@ namespace LiveInJobSeeker
             controller.leftarrowkeydownhandle = new F_LeftArrowKeyDownHandle(PressLeftArrowKey);
             controller.rightarrowkeydownhandle = new F_RightArrowKeyDownHandle(PressRightArrowKey);
             controller.zkeydownhandle = new F_ZKeyDownHandle(PressZKey);
+
+            AAwindow.SetAA(AAData.Instance.AA_SelectWA);
         }
         public override void Update()
         {
             base.Update();
             // 프로토타입용 * 싹 바꿔야됨
+            AAwindow.Update();
             if(!isSelected)
             {
                 controller.KbHit();
@@ -110,6 +114,7 @@ namespace LiveInJobSeeker
         public override void Render()
         {
             base.Render();
+            AAwindow.Render();
             if(!isSelected)
             {
                 TextBar.Render();
@@ -118,6 +123,7 @@ namespace LiveInJobSeeker
             {
                 selectedWA.TextBar.Render();
             }
+
         }
 
         public override void Destroy()

@@ -202,10 +202,10 @@ namespace LiveInJobSeeker
         }
         private void SetupEnemyList()
         {
-            enemies = enemyCreater.CreateEnemyList();
+            enemies = enemyCreater.CreateRandomEnemyList();
             foreach(var enemy in enemies)
             {
-                menu.Add(enemy.Name);
+                menu.Add(enemy.name);
             }
             enemyCount = enemies.Count;
         }

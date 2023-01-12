@@ -27,6 +27,9 @@ namespace LiveInJobSeeker
         private Scene currentScene;
         public FShiftSceneDelegate shiftscenehandle;
 
+        //
+        private AAData aaData;
+
         // 플레이어
         private JobSeeker currentJobSeeker;
         public JobSeeker Player
@@ -58,6 +61,7 @@ namespace LiveInJobSeeker
             currentScene.Init();
             // 델리게이트 초기화
             shiftscenehandle = new FShiftSceneDelegate(ShiftScene);
+            aaData = AAData.Instance;
         }
 
         public void Init()

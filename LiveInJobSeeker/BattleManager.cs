@@ -97,7 +97,7 @@ namespace LiveInJobSeeker
         {
             enemy = e;
             CoteIdx = 0;
-            resultStr = $"{enemy.Name}\n";
+            resultStr = $"{enemy.name}\n";
         }
         public List<BattleLog> ExecuteBattle()
         {
@@ -122,12 +122,12 @@ namespace LiveInJobSeeker
         {
             // 데미지 처리
             int hpBeforeDamage = player.Status.hp;
-            int damage = enemy.Status.SpecAtk;
+            int damage = enemy.status.specAtk;
             int finaldmg = player.TakeDamage(damage, EAttack.SPECATTACK);
 
             // 출력 로그 처리
             string playerStr = $"{player.Name}의 현재 체력 : {hpBeforeDamage}";
-            string atkDescStr = $"{enemy.Name}의 서류 전형!";
+            string atkDescStr = $"{enemy.name}의 서류 전형!";
             string damageDescStr = $"{player.Name}은 {finaldmg}의 데미지를 받았다!";
             BattleLog bLog = new BattleLog(playerStr, atkDescStr, damageDescStr);
 
@@ -151,10 +151,10 @@ namespace LiveInJobSeeker
             {
                 CodingTest cote = enemy.CoteList[i];
                 int hpBeforeDamage = player.Status.hp;
-                int damage = enemy.Status.CoteAtk + cote.Level * 5;
+                int damage = enemy.status.coteAtk + cote.Level * 5;
                 int finaldmg = player.TakeDamage(damage, EAttack.COTEATTACK, cote.Algorithm);
                 string algo = string.Empty;
-                string atkDescStr = $"{enemy.Name}의 코딩 테스트 공격!";
+                string atkDescStr = $"{enemy.name}의 코딩 테스트 공격!";
                 switch (cote.Algorithm)
                 {
                     case EAlgorithm.NONE:
@@ -202,12 +202,12 @@ namespace LiveInJobSeeker
 
             // 데미지 처리
             int hpBeforeDamage = player.Status.hp;
-            int damage = enemy.Status.IntvAtk;
+            int damage = enemy.status.intvAtk;
             int finaldmg = player.TakeDamage(damage, EAttack.INTVATTACK);
 
             // 출력 로그 처리
             string playerStr = $"{player.Name}의 현재 체력 : {hpBeforeDamage}";
-            string atkDescStr = $"{enemy.Name}의 면접 공격!";
+            string atkDescStr = $"{enemy.name}의 면접 공격!";
             string damageDescStr = $"{player.Name}은 {finaldmg}의 데미지를 받았다!";
             BattleLog bLog = new BattleLog(playerStr, atkDescStr, damageDescStr);
 

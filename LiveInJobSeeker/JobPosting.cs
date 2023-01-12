@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LiveInJobSeeker
 {
@@ -34,24 +36,9 @@ namespace LiveInJobSeeker
 
     public class JobPostStatus
     {       
-        private int specAtk;
-        private int coteAtk;
-        private int intvAtk;
-        public int SpecAtk 
-        {
-            get { return specAtk; }
-            set { specAtk = value; }
-        }
-        public int CoteAtk
-        {
-            get { return coteAtk; }
-            set { coteAtk = value; }
-        }
-        public int IntvAtk
-        {
-            get { return intvAtk; }
-            set { intvAtk = value; }
-        }
+        public int specAtk;
+        public int coteAtk;
+        public int intvAtk;
         public JobPostStatus(int sa, int ca, int ia) 
         {
             specAtk = sa;
@@ -72,23 +59,11 @@ namespace LiveInJobSeeker
         * 코딩테스트 여러개
         * 코테 데미지는 코테 공격력 * 코테 추가 보정치
         */
-        private int id;
-        private string name;
-        private JobPostStatus status;
+        public int id;
+        public string name;
+        public JobPostStatus status;
         private List<CodingTest> coteList;
 
-        public int ID
-        {
-            get { return id; }
-        }
-        public string Name
-        {
-            get { return name; }
-        }
-        public JobPostStatus Status
-        {
-            get { return status; }
-        }
         public List<CodingTest> CoteList
         {
             get { return coteList; }
@@ -126,12 +101,19 @@ namespace LiveInJobSeeker
             }
         }
     } // JopPosting
+
     public class JobPostingCreater
     {
         private int cntJobPosting;
 
         // 임시로 이름 배열에서 적 이름 붙여주기
         private List<string> enemyNames = new List<string>();
+
+        private List<JobPosting> enemies;
+        public List<JobPosting> Enemies
+        {
+            get { return enemies; }
+        }
 
         /*
          * 싱글턴
@@ -150,7 +132,6 @@ namespace LiveInJobSeeker
         }
         private JobPostingCreater()
         {
-            // 임시
             enemyNames.Add("넥슨 공채");
             enemyNames.Add("엔씨 공채");
             enemyNames.Add("넷마블 공채");
@@ -164,8 +145,7 @@ namespace LiveInJobSeeker
             enemyNames.Add("크래프톤 인턴");
             enemyNames.Add("네오위즈 인턴");
         }
-
-        public List<JobPosting> CreateEnemyList()
+        public List<JobPosting> CreateRandomEnemyList()   // 미리 설정된 이름 중 랜덤으로 적 설정 * 중복 가능 ** 중복 안나오는거 구현하면 지울거
         {
             // 일단 전부 랜덤으로
             List<JobPosting> newEnemyList = new List<JobPosting>();

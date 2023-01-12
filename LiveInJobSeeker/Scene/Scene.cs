@@ -10,7 +10,7 @@ namespace LiveInJobSeeker
     public class Scene
     {
         protected StringBuilder renderSB;
-
+        public  AAWindow AAwindow;
         public Scene() 
         {
             /* 
@@ -25,6 +25,10 @@ namespace LiveInJobSeeker
              * Do Nothing 
              * Virtual Method
              */
+            AAwindow = new AAWindow();
+            AAwindow.Init(160, 41, 0, 0);
+
+
         }
 
         public virtual void Update() 
