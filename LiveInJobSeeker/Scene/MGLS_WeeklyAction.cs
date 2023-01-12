@@ -58,10 +58,10 @@ namespace LiveInJobSeeker
 
             // UI 초기화
             renderSB.AppendLine($"{week}주차 ");
-            renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 현재 체력 : {player.Status.hp} ");
+            renderSB.AppendLine($"{week}주차에는 무엇을 할지 선택해주세요. 체력 : {player.Status.hp} 돈 : {player.Money} ");
             TextBar.SetSB(renderSB.ToString());
             TextBar.SetHRZMenu(menu);
-            TextBar.Init(160, 10, 0, 40, EOutputType.DEFAULT, renderSB.ToString());
+            TextBar.Init(102, 10, 0, 40, EOutputType.DEFAULT, renderSB.ToString());
             TextBar.IsThereBorder = true;
             // 컨트롤러 초기화
             controller = Controller.Instance;
@@ -166,6 +166,7 @@ namespace LiveInJobSeeker
                     selectWeeklyAction = new WeeklyAction();
                     break;
             }
+            selectWeeklyAction.SetAAWindow(AAwindow);
             selectWeeklyAction.Init();
             selectWeeklyAction.SetRenderStringBuilder(renderSB);
             selectedWA = selectWeeklyAction;

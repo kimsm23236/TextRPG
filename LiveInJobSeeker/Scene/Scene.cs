@@ -21,14 +21,9 @@ namespace LiveInJobSeeker
 
         public virtual void Init()
         {
-            /* 
-             * Do Nothing 
-             * Virtual Method
-             */
             AAwindow = new AAWindow();
-            AAwindow.Init(160, 41, 0, 0);
-
-
+            AAwindow.Init(102, 41, 0, 0);
+            AAwindow.IsThereBorder = false;
         }
 
         public virtual void Update() 

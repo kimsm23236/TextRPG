@@ -34,6 +34,7 @@ namespace LiveInJobSeeker
         protected bool isEndAllAction;
         protected F_ActionEndHandle actionEndHandle;
         public TextMenuUI TextBar;
+        public AAWindow aaWindow;
 
         public WeeklyAction()
         { 
@@ -47,9 +48,9 @@ namespace LiveInJobSeeker
             player = gameIns.Player;
             controller = Controller.Instance;
             controller.InitDelegate();
-
+            Console.Clear();
             //
-            TextBar.Init(160, 10, 0, 40, EOutputType.SEQ_LETTER);
+            TextBar.Init(102, 10, 0, 40, EOutputType.SEQ_LETTER);
             TextBar.IsThereBorder = true;
             //
 
@@ -60,6 +61,10 @@ namespace LiveInJobSeeker
         public virtual void SetTextBar(TextMenuUI ui)
         {
             this.TextBar = ui;
+        }
+        public virtual void SetAAWindow(AAWindow ui)
+        {
+            this.aaWindow = ui;
         }
         public virtual void SetRenderStringBuilder(StringBuilder newSB)
         {
@@ -88,8 +93,10 @@ namespace LiveInJobSeeker
         protected virtual void ToNextScene()
         {
             Game gameIns = Game.Instance;
-            MGLS_WeeklyAction nextScene = new MGLS_WeeklyAction();
-            player.IncreaseTurn();
+            // MGLS_WeeklyAction nextScene = new MGLS_WeeklyAction();
+            SelectEndingScene nextScene = new SelectEndingScene();
+            //nextScene.Init();
+            //nextScene.AAwindow.SetAA(AAData.Instance.AA_Training);
             gameIns.shiftscenehandle(nextScene);
             Console.Clear();
         }

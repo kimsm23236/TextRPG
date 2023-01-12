@@ -10,11 +10,17 @@ namespace LiveInJobSeeker
     {
         public string curAA;
         public bool isRenderAA;
-        private int tsx;
-        private int tsy;
+        public int tsx;
+        public int tsy;
+        public void SetTextPosition(int x, int y)
+        {
+            tsx = x;
+            tsy = y;
+        }
 
         public AAWindow() 
         { 
+            curAA = string.Empty;
             IsThereBorder = true;
             bIsUpdated = true;
             renderSB = new StringBuilder();
@@ -28,24 +34,28 @@ namespace LiveInJobSeeker
             tsy = py + 1;
 
         }
+
         public virtual void Update()
         {
-            renderSB.Append(curAA);
+            // renderSB.Append(curAA);
         }
 
         public virtual void Render()
-        {
-            base.Render();
+        { 
             if (!bIsUpdated)
                 return;
 
-            Console.SetCursorPosition(tsx, tsy);
+            base.Render();
 
-            foreach(var ch in renderSB.ToString())
+            Console.SetCursorPosition(tsx, tsy);
+            
+            for(int i = 0; i < curAA.Length; i++)
             {
-                Console.Write(ch);
+                if (curAA[i] == '\n')
+                    Console.SetCursorPosition(tsx, Console.GetCursorPosition().Top + 1);
+                else
+                    Console.Write(curAA[i]);
             }
-            Console.Write(renderSB.ToString());
 
             bIsUpdated = false;
         }

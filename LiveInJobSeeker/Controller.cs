@@ -101,29 +101,29 @@ namespace LiveInJobSeeker
 
         private void LeftArrowKeyDown()
         {
-            Console.WriteLine("왼쪽 방향키 눌렸음");
+            // Console.WriteLine("왼쪽 방향키 눌렸음");
         }
         public void RightArrowKeyDown() 
         {
-            Console.WriteLine("오른쪽 방향키 눌렸음");
+            // Console.WriteLine("오른쪽 방향키 눌렸음");
         }
         public void UpArrowKeyDown()
         {
-            Console.WriteLine("위쪽 방향키 눌렸음");
+            // Console.WriteLine("위쪽 방향키 눌렸음");
         }
         public void DownArrowKeyDown()
         {
-            Console.WriteLine("아래쪽 방향키 눌렸음");
+            // Console.WriteLine("아래쪽 방향키 눌렸음");
         }
 
         public void ZKeyDown()
         {
-            Console.WriteLine("Z키 눌렸음");
+            // Console.WriteLine("Z키 눌렸음");
         }
 
         public void XKeyDown()
         {
-            Console.WriteLine("X키 눌렸음");
+            // Console.WriteLine("X키 눌렸음");
         }
     }
 }

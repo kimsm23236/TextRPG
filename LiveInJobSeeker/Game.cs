@@ -19,7 +19,7 @@ namespace LiveInJobSeeker
         private bool bisGameEnd = false;
 
         // 콘솔창 크기
-        private const int WINDOW_WIDTH = 160;
+        private const int WINDOW_WIDTH = 102;
         private const int WINDOW_HEIGHT = 50;
 
         // 씬 관련
@@ -74,6 +74,7 @@ namespace LiveInJobSeeker
             Console.SetBufferSize(WINDOW_WIDTH, WINDOW_HEIGHT + 10);
             // Console.BufferWidth = int;
             Console.CursorVisible = false;
+            Console.OutputEncoding = Encoding.Unicode;
         }
 
         public void Start()

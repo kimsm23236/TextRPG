@@ -22,6 +22,8 @@ namespace LiveInJobSeeker
             descSB.AppendLine(descStr);
             TextBar.SetDesc(descSB.ToString());
             TextBar.SetOutputType(EOutputType.SEQ_LETTER);
+            aaWindow.SetAA(AAData.Instance.AA_Rest);
+            aaWindow.SetTextPosition(1, 5);
 
             ExecuteAction();
         }

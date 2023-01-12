@@ -36,8 +36,10 @@ namespace LiveInJobSeeker
             //
             descSB.AppendLine(descStr[0]);
             TextBar.SetDesc(descSB.ToString());
-            TextBar.SetOutputType(EOutputType.DEFAULT);
+            TextBar.SetOutputType(EOutputType.SEQ_LETTER);
             TextBar.SetVTCMenu(menu);
+            //
+            aaWindow.SetAA(AAData.Instance.AA_PartTimeJob);
             //
             controller.uparrowkeydownhandle = new F_UpArrowKeyDownHandle(PressUpArrowKey);
             controller.downArrowKeydownHandle = new F_DownArrowKeyDownHandle(PressDownArrowKey);
@@ -70,6 +72,8 @@ namespace LiveInJobSeeker
                 default: 
                     break;
             }
+            if (player.Status.hp <= 0)
+                increaseMoney /= 5;
             player.IncreaseMoney(increaseMoney);
             player.DecreaseHP(decreaseHp);
             StringBuilder sb = new StringBuilder();

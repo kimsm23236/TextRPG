@@ -58,6 +58,10 @@ namespace LiveInJobSeeker
         // 턴 수
         private int cntTurn;
 
+        public List<string> WinningList = new List<string>();
+
+        private bool bIsGameOver = false;
+
         public string Name
         {
             get { return name; }
@@ -83,6 +87,7 @@ namespace LiveInJobSeeker
             // 스탯 초기화
             stat = new Status();
             cntTurn = 1;
+            money = 100000;
         }
 
         public void SetName(string newName)
@@ -94,17 +99,22 @@ namespace LiveInJobSeeker
             stat = newStat;
         }
 
+        public bool IsGameOver()
+        {
+            return bIsGameOver;
+        }
+
         public void ResetHP()
         {
             Status.hp = 100;
         }
         public void IncreaseHP(int value)
         {
-            stat.hp += value;
+            stat.hp = Math.Clamp(stat.hp + value, 0, 100);
         }
         public void DecreaseHP(int value)
         {
-            stat.hp -= value;
+            stat.hp = Math.Clamp(stat.hp - value, 0, 100);
         }
 
         public bool IsDead()
@@ -167,6 +177,7 @@ namespace LiveInJobSeeker
         public void IncreaseTurn()
         {
             cntTurn++;
+            DecMoneyPerTurn(30000);
         }
 
         public void IncreaseMoney(int m)
@@ -176,6 +187,12 @@ namespace LiveInJobSeeker
         public void DecreaseMoney(int m)
         {
             money -= m;
+        }
+        public void DecMoneyPerTurn(int TurnCost)
+        {
+            DecreaseMoney(TurnCost);
+            if (Money < 0)
+                bIsGameOver = true;
         }
     }
 }

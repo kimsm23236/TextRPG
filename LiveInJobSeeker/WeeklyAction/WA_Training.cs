@@ -77,6 +77,8 @@ namespace LiveInJobSeeker
             TextBar.SetDesc(descSB.ToString());
             TextBar.SetOutputType(EOutputType.DEFAULT);
             TextBar.SetVTCMenu(menu);
+            aaWindow.SetAA(AAData.Instance.AA_Training);
+            aaWindow.SetTextPosition(15, 5);
         }
         public override void ExecuteAction()
         {
@@ -93,7 +95,9 @@ namespace LiveInJobSeeker
             
             string Training = string.Empty;
             // 증가 수치 * 임시
-            int increasingValue = 2;
+            int increasingValue = 4;
+            if (player.Status.hp <= 0)
+                increasingValue = 0;
             int decreasingValue = 20;
             switch(selectedTraining) // 임시 수치 증가 * 밸런스 조절때 수정 해야됨
             {
@@ -141,6 +145,7 @@ namespace LiveInJobSeeker
                     break;
             }
 
+            player.DecreaseHP(decreasingValue);
             resultSB.AppendLine(Training);
             resultSB.AppendLine($"체력이 {decreasingValue} 만큼 감소하였습니다.");
             TextBar.SetRes(resultSB.ToString());

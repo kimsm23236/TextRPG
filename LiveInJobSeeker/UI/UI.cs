@@ -66,7 +66,7 @@ namespace LiveInJobSeeker
         }
         public virtual void Update() 
         { 
-
+            /* Do Nothing*/
         }
 
         public virtual void Render()

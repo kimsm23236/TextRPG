@@ -74,7 +74,10 @@ namespace LiveInJobSeeker
             TextBar.SetOutputType(EOutputType.DEFAULT);
             TextBar.SetVTCMenu(menu);
 
-            battleTextBar.Init(160, 10, 0, 40);
+            aaWindow.SetAA(AAData.Instance.AA_ApplyJob);
+            aaWindow.SetTextPosition(15, 0);
+
+            battleTextBar.Init(102, 10, 0, 40);
             battleTextBar.IsThereBorder = true;
         }
         public override void ExecuteAction()
