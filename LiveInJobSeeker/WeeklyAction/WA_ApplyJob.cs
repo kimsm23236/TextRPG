@@ -189,6 +189,8 @@ namespace LiveInJobSeeker
                     // 서치한 적 선택 후 배틀 매니져에 플레이어, 적 넣어주기
                     battleManager.SetPlayer(player);
                     battleManager.SetEnemy(enemies[selectNumber]);
+                    SetupEnemyAA(enemies[selectNumber].name);
+                    Console.Clear();
                     // 컨트롤러 델리게이트에 묶인 함수들 초기화 * 입력 안받겠다는 것
                     controller.InitDelegate();
                     currentPhase = EApplyJobPhase.BATTLE;
@@ -211,6 +213,21 @@ namespace LiveInJobSeeker
                 menu.Add(enemy.name);
             }
             enemyCount = enemies.Count;
+        }
+        private void SetupEnemyAA(string ename)
+        {
+            if(ename.Contains("넥슨"))
+                aaWindow.SetAA(AAData.Instance.AA_Nexon);
+            else if(ename.Contains("엔씨"))
+                aaWindow.SetAA(AAData.Instance.AA_NC);
+            else if (ename.Contains("넷마블"))
+                aaWindow.SetAA(AAData.Instance.AA_Netmarble);
+            else if (ename.Contains("스마일"))
+                aaWindow.SetAA(AAData.Instance.AA_Smilegate);
+            else if (ename.Contains("크래프톤"))
+                aaWindow.SetAA(AAData.Instance.AA_Krafton);
+            else if (ename.Contains("네오위즈"))
+                aaWindow.SetAA(AAData.Instance.AA_Neowiz);
         }
 
         private void BattleEnd()

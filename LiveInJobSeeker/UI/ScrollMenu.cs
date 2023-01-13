@@ -208,5 +208,14 @@ namespace LiveInJobSeeker
             onUIUpdatedhandle();
         }
 
+        public void switchDescRes()
+        {
+            IsOutputDesc = false;
+            IsVtcMenu = false;
+            IsOutputResult = true;
+            cntOutputLetter = 0;
+            OnTimer();
+        }
+
     }
 }

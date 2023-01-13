@@ -29,16 +29,16 @@ namespace LiveInJobSeeker
 
         public Status()
         {
-            hp = 100;
-            specPower = 0;
-            codePower = 0;
-            algoPower = 0;
-            agp_Brf = 0;
-            agp_DP = 0;
-            agp_BDFS = 0;
-            agp_Dijk = 0;
-            agp_DivC = 0;
-            intvPower = 0;
+            hp = 10000;
+            specPower = 20;
+            codePower = 20;
+            algoPower = 20;
+            agp_Brf = 20;
+            agp_DP = 20;
+            agp_BDFS = 20;
+            agp_Dijk = 20;
+            agp_DivC = 20;
+            intvPower = 20;
         }
     }
 

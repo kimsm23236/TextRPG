@@ -93,7 +93,14 @@ namespace LiveInJobSeeker
         }
         public void PressZKey()
         {
+            if(player.WinningList.Count >= 1)
+            {
+                string str = $"당신은 {player.WinningList[selectNumber]}에 최종 합격하여 취준생을 졸업하였습니다.";
+                ScrollBar.SetRes(str);
+                ScrollBar.switchDescRes();
 
+                ToNextScene();
+            }
         }
         public void PressXKey()
         {
@@ -101,6 +108,13 @@ namespace LiveInJobSeeker
             player.IncreaseTurn();
             gameIns.shiftscenehandle(nextScene);
 
+        }
+
+        public async void ToNextScene()
+        {
+            await Task.Delay(2000);
+            TitleScene nextscene = new TitleScene();
+            gameIns.shiftscenehandle(nextscene);
         }
 
     }

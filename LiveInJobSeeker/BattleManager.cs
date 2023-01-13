@@ -220,6 +220,7 @@ namespace LiveInJobSeeker
             else
             {
                 resultStr += "최종 합격!";
+                player.WinningList.Add(enemy.name);
             }
             bLog.SetAlive(isAlive);
             logs.Add(bLog);

@@ -52,7 +52,9 @@ namespace LiveInJobSeeker
         public override void Render()
         {
             base.Render();
-
+            Console.SetCursorPosition(0, 0);
+            Console.Write(renderSB.ToString());
+            renderSB = new StringBuilder();
         }
         private void menuUpdate()
         {
